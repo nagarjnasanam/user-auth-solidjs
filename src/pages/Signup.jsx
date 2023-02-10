@@ -2,16 +2,21 @@ import { onMount, createEffect,createSignal } from "solid-js";
 import { auth, setAuth ,users,setUsers} from "../auth/auth";
 const [username, setUsername] =createSignal("")
 const [password, setPassword] =createSignal("")
+import { useNavigate } from "solid-app-router";
+
 function Signup() {
 
   onMount(() => {
     console.log("mounted");
     // console.log('signup',auth())
   });
+  const navigate= useNavigate()
   const signup = () => {
     setUsers([...users(),{username:username(), password:password()}])
     setUsername("")
     setPassword('')
+    console.log("Sign Up success")
+    navigate("/signin",{replace:true,replace:true})
   };
 
 
@@ -20,6 +25,7 @@ function Signup() {
   });
   return (
     <div>
+        <h1>SignUp Page</h1>
       <form>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">

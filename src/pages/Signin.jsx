@@ -1,5 +1,6 @@
 import { createSignal, onMount,createEffect } from "solid-js";
 import Todos from "./Todos";
+import { useNavigate } from "solid-app-router";
 import {
   auth,
   setAuth,
@@ -9,6 +10,9 @@ import {
   setCurrentUser,
 } from "../auth/auth";
 function Signin() {
+    const navigate = useNavigate();
+
+
   const [username, setUsername] = createSignal("");
   const [password, setPassword] = createSignal("");
   createEffect(() => {
@@ -29,6 +33,9 @@ function Signin() {
         setAuth(true);
         setCurrentUser([checkUser]);
         console.log(currentUser());
+        if (auth()) {
+            navigate("/todos", { replace: true ,resolve:true});
+          }
       } else {
         console.log("no user found");
       }
@@ -42,9 +49,7 @@ function Signin() {
   return (
     <div>
         
-      {auth() ? (
-        <Todos />
-      ) : (
+      <h1>Sign In Page</h1>
         <div>
           <form>
             <div class="mb-3">
@@ -82,7 +87,7 @@ function Signin() {
             SignIN
           </button>
         </div>
-      )}
+      
     </div>
   );
 }
