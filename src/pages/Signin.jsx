@@ -18,9 +18,17 @@ function Signin() {
   createEffect(() => {
     console.log('auth',auth())
   })
-  const signin = () => {
+  const signin = async() => {
     // console.log(username(),password())
     try {
+      await fetch("http://localhost:8003/signin", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify( { email:username()}),
+      }).then(res=>console.log(res));
       const checkUser = users().find((item) => {
         if ((item.username == username()) & (item.password == password())) {
           console.log(item);

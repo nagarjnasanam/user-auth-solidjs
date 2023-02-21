@@ -11,7 +11,16 @@ function Signup() {
     // console.log('signup',auth())
   });
   const navigate= useNavigate()
-  const signup = () => {
+  const signup = async () => {
+    await fetch("http://localhost:8003/register", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: JSON.stringify( { email:username(),password:password()}),
+    });
+
     setUsers([...users(),{username:username(), password:password()}])
     setUsername("")
     setPassword('')
